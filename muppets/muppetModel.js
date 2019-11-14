@@ -2,20 +2,24 @@ const db = require("../data/dbConfig");
 
 async function insert(muppet) {
   return db("muppets")
-    .insert()
-    .then(() => {
+    .insert(muppet, "id")
+    .then(([id]) => {
       return db("muppets")
-        .where()
+        .where({ id })
         .first();
     });
 }
 
 async function update(id, changes) {
-  return null;
+  return db("muppets")
+    .where({ id })
+    .update(changes);
 }
 
 function remove(id) {
-  return null;
+  return db("muppets")
+    .where({ id })
+    .del();
 }
 
 function getAll() {
